@@ -15,26 +15,14 @@ purpose and high-end software and applications".
 sub main
 {
     my $profit = 0;
+    my $movie;
 
     open(my $fh, "<", "./Movies.txt") or die "Can't open < Movies.txt: $!";
 
     foreach my $line (<$fh>)
     {
         chomp $line;
-        my @info = split(/:/, $line); 
-
-        # note: some movies have ":" in their titles
-        if (scalar @info == 4)
-        {
-            my @movie_title = @info[0, 1];
-            my $movie = join(':', @movie_name);
-            print("$movie\n");
-        }
-        else
-        {
-            my $movie = $info[0];
-            print("$movie\n"); 
-        }        
+        my @info = split(/:/, $line);         
 
         my $movie_budget = $info[-2]; 
         my $box_office_gross = $info[-1];
@@ -44,11 +32,21 @@ sub main
         if ($movie_profit > $profit)
         {
             $profit = $movie_profit;
-            my $movie_name = $movie;
+        
+            # note: some movies have ":" in their titles
+            if (scalar @info == 4)
+            {
+                my @movie_title = @info[0, 1];
+                $movie = join(':', @movie_name);
+            }
+            else
+            {
+                $movie = $info[0];
+            }
         }                
     }
 
-    print("$movie_name made the highest profit. The profit was \$$profit");
+    print("$movie made the highest profit. The profit was \$$profit\n");
 
     close $fh;
 }
