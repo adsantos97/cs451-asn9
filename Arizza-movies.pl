@@ -12,6 +12,9 @@ language that is not considered to be suitable or capable for building general
 purpose and high-end software and applications".
 =cut
 
+# purpose: run program to find the movie with the highest profit
+# input: nothing
+# return: nothin - prints movie with highest profit
 sub main
 {
     my $profit = 0;
@@ -37,7 +40,7 @@ sub main
             if (scalar @info == 4)
             {
                 my @movie_title = @info[0, 1];
-                $movie = join(':', @movie_name);
+                $movie = join(':', @movie_title);
             }
             else
             {
@@ -46,7 +49,7 @@ sub main
         }                
     }
 
-    print("$movie made the highest profit. The profit was \$$profit\n");
+    print("$movie made the highest profit. The profit was \$$profit.\n");
 
     close $fh;
 }
